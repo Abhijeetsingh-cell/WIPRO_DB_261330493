@@ -1,0 +1,31 @@
+-- Intersectionandmius
+-- Q.1
+SELECT JOB,
+       SUM(DECODE(DEPTNO, 10, SAL, 0)) AS "Dept 10 Sal",
+       SUM(DECODE(DEPTNO, 20, SAL, 0)) AS "Dept 20 Sal",
+       SUM(DECODE(DEPTNO, 30, SAL, 0)) AS "Dept 30 Sal",
+       SUM(SAL) AS "Total Salary"
+FROM EMP
+GROUP BY JOB;
+
+-- Q.2
+SELECT TO_CHAR(DEPTNO) AS "Group Criteria", SUM(SAL) AS "Total Salary"
+FROM EMP 
+GROUP BY DEPTNO
+
+UNION ALL
+
+SELECT JOB, SUM(SAL)
+FROM EMP 
+GROUP BY JOB
+
+UNION ALL
+
+SELECT 'Grand Total', SUM(SAL)
+FROM EMP;
+
+-- Q.3
+SELECT JOB, DEPTNO 
+FROM EMP 
+WHERE DEPTNO IN (10, 20, 30)
+ORDER BY DECODE(DEPTNO, 20, 1, 10, 2, 30, 3);

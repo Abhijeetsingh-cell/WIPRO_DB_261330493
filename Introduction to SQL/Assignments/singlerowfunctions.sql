@@ -1,0 +1,87 @@
+-- ROW FUNCTIONS TO CUSTOMIZE THE OUTPUT
+-- Q.1
+SELECT SYSDATE AS "Date" 
+FROM DUAL;
+
+-- Q.2
+SELECT EMPNO, ENAME, SAL, 
+ROUND(SAL * 1.155) AS "New Salary"
+FROM EMP;
+
+-- Q.3
+SELECT EMPNO, ENAME, SAL, 
+ROUND(SAL * 1.155) AS "New Salary",
+ROUND(SAL * 1.155) - SAL AS "Increase"
+FROM EMP;
+
+-- Q.4
+SELECT INITCAP(ENAME) AS "Employee Name", 
+       LENGTH(ENAME) AS "Name Length"
+FROM EMP
+WHERE ENAME LIKE 'J%' 
+   OR ENAME LIKE 'A%' 
+   OR ENAME LIKE 'M%'
+ORDER BY ENAME ASC;
+
+-- Q.5
+SELECT INITCAP(ENAME) AS "Employee Name", 
+LENGTH(ENAME) AS "Name Length"
+FROM EMP
+WHERE ENAME LIKE UPPER('&Start_Letter%')
+ORDER BY ENAME ASC;
+
+-- Q.6
+SELECT ENAME, 
+       CEIL(MONTHS_BETWEEN(SYSDATE, HIREDATE)) AS MONTHS_WORKED
+FROM EMP
+ORDER BY MONTHS_WORKED ASC;
+
+-- Q.7
+SELECT ENAME || ' earns ' || TO_CHAR(SAL, '$99,999.00') || ' monthly but wants ' || TO_CHAR(SAL * 3, '$99,999.00') AS "Dream Salaries"
+FROM EMP;
+
+-- Q.8
+SELECT ENAME, 
+LPAD(TO_CHAR(SAL, '99999'), 15, '$') AS SALARY
+FROM EMP;
+
+-- Q.9
+SELECT ENAME, HIREDATE, 
+TO_CHAR(NEXT_DAY(ADD_MONTHS(HIREDATE, 6), 'MONDAY'), 'Day, "the" Ddspth "of" Month, YYYY') AS REVIEW
+FROM EMP;
+
+-- Q.10
+SELECT ENAME, HIREDATE, 
+TO_CHAR(HIREDATE, 'Day') AS DAY
+FROM EMP
+ORDER BY TO_CHAR(HIREDATE - 1, 'D') ASC; 
+
+-- Q.11
+SELECT ENAME, 
+NVL(TO_CHAR(COMM), 'No Commission') AS COMM
+FROM EMP;
+
+-- Q.12
+SELECT RPAD(SUBSTR(ENAME, 1, 8), 8) || ' ' || RPAD('*', TRUNC(SAL/1000), '*') AS EMPLOYEES_AND_THEIR_SALARIES
+FROM EMP
+ORDER BY SAL DESC;
+
+-- Q.13
+SELECT ENAME, JOB,
+       DECODE(JOB, 'PRESIDENT', 'A',
+                   'MANAGER',   'B',
+                   'SALESMAN',  'C',
+                   'CLERK',     'D',
+                   'Unknown') AS GRADE
+FROM EMP;
+
+-- Q.14
+SELECT ENAME, JOB,
+       CASE JOB 
+            WHEN 'PRESIDENT' THEN 'A'
+            WHEN 'MANAGER'   THEN 'B'
+            WHEN 'SALESMAN'  THEN 'C'
+            WHEN 'CLERK'     THEN 'D'
+            ELSE 'Unknown'
+       END AS GRADE
+FROM EMP;
