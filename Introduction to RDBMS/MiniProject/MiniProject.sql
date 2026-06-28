@@ -1,4 +1,4 @@
-
+-- NORMALISATION
 -- Q.1(1NF)
 CREATE TABLE Member_Hobbies (
     Member_Id NUMBER,
